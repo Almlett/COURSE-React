@@ -6,7 +6,7 @@ import ShoppingCar from './components/ShoppingCar'
 
 function App() {
 
-  const [ products, setProduct] = useState([
+  const [ products ] = useState([
     { id:1, name:"product1", cost:55},
     { id:2, name:"product2", cost:54},
     { id:3, name:"product3", cost:53},
