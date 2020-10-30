@@ -1,4 +1,3 @@
 [build]	
     command = "npm start"
-    command = "ls"
-    build = "/build"
+    build = "build"
