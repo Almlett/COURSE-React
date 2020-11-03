@@ -5,6 +5,7 @@ import { getYearDifference,
          getBrandIncrement,
          getIncrementTotal,
          getPlanIncrement } from '../helper.js';
+import PropTypes from 'prop-types';
 
 const FieldComponent = styled.div`
     display: flex;
@@ -176,4 +177,9 @@ const Form = ({ setSumarry, setLoading }) => {
      );
 }
  
+Form.propTypes = {
+    setSumarry: PropTypes.func.isRequired,
+    setLoading: PropTypes.func.isRequired
+}
+
 export default Form;

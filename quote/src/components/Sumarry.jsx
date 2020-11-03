@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { getUpperCase } from '../helper.js';
+import PropTypes from 'prop-types';
 
 const ResumenContainer = styled.div`
     padding:1rem;
@@ -28,4 +29,9 @@ const Sumarry = ({ data }) => {
      );
 }
  
+
+Sumarry.propTypes = {
+    data: PropTypes.object.isRequired,
+}
+
 export default Sumarry;
