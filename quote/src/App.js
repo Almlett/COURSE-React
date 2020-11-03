@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './components/Header.jsx';
 import Form from './components/Form.jsx';
+import Sumarry from './components/Sumarry.jsx';
 import styled from '@emotion/styled';
 
 const Container = styled.div`
@@ -14,13 +15,29 @@ const FormContainer = styled.div`
 `
 
 function App() {
+
+  const [ summary, setSumarry ] = useState({
+    quote:0,
+    data:{
+      brand:'',
+      year:'',
+      plan:''
+    }
+  });
+
+  const { data } = summary;
   return (
     <Container>
       <Header 
         title="Quote"
       />
       <FormContainer>
-          <Form />
+          <Form 
+            setSumarry={setSumarry}
+          />
+          <Sumarry 
+            data={data}
+          />
       </FormContainer>
     </Container>
   );

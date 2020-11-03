@@ -45,3 +45,7 @@ export function getPlanIncrement(plan){
 export function getIncrementTotal(result, increment){
     return parseFloat((result * increment).toFixed(2));
 }
+
+export function getUpperCase(text){
+    return text.charAt(0).toUpperCase() + text.slice(1);
+}

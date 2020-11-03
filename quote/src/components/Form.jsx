@@ -55,7 +55,7 @@ const ErrorComponent = styled.div`
     font-weight: bold;
 `;
 
-const Form = () => {
+const Form = ({ setSumarry }) => {
 
     const [ data, setData] = useState({
         brand: '',
@@ -95,7 +95,10 @@ const Form = () => {
         const plan_increment = getPlanIncrement(plan)
         result = getIncrementTotal(result, plan_increment)
 
-        console.log(result)
+        setSumarry({
+            quote:result,
+            data
+        })
     };
 
     return ( 
