@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './components/Header.jsx';
+import Form from './components/Form.jsx';
 import styled from '@emotion/styled';
 
 const Container = styled.div`
@@ -18,7 +19,9 @@ function App() {
       <Header 
         title="Quote"
       />
-      <FormContainer/>
+      <FormContainer>
+          <Form />
+      </FormContainer>
     </Container>
   );
 }
