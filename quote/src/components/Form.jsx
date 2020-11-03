@@ -35,7 +35,7 @@ const ButtonComponent = styled.button`
     color: #fff;
     text-transform: uppercase;
     font-weight: bold;
-    border: none;
+    border: 2px solid #000;
     transition: background-color .3s ease;
     margin-top: 2rem;
 
@@ -55,7 +55,7 @@ const ErrorComponent = styled.div`
     font-weight: bold;
 `;
 
-const Form = ({ setSumarry }) => {
+const Form = ({ setSumarry, setLoading }) => {
 
     const [ data, setData] = useState({
         brand: '',
@@ -82,7 +82,7 @@ const Form = ({ setSumarry }) => {
             return;
         }
         setError(false);
-
+        
         // Initial cost
         let result = 4000;
         // calculate result
@@ -95,10 +95,15 @@ const Form = ({ setSumarry }) => {
         const plan_increment = getPlanIncrement(plan)
         result = getIncrementTotal(result, plan_increment)
 
-        setSumarry({
-            quote:result,
-            data
-        })
+        setLoading(true)
+        setTimeout(() => {
+            setLoading(false)
+            setSumarry({
+                quote:result,
+                data
+            })
+        }, 2000);
+        
     };
 
     return ( 

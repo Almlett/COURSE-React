@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Header from './components/Header.jsx';
 import Form from './components/Form.jsx';
 import Sumarry from './components/Sumarry.jsx';
+import Result from './components/Result.jsx';
+import Spinner from './components/Spinner.jsx';
 import styled from '@emotion/styled';
 
 const Container = styled.div`
@@ -25,7 +27,9 @@ function App() {
     }
   });
 
-  const { data } = summary;
+  const [ loading, setLoading] = useState( false)
+
+  const { data, quote } = summary;
   return (
     <Container>
       <Header 
@@ -34,10 +38,22 @@ function App() {
       <FormContainer>
           <Form 
             setSumarry={setSumarry}
+            setLoading={setLoading}
           />
-          <Sumarry 
-            data={data}
-          />
+          
+          {loading 
+            ? <Spinner />
+            : <Sumarry 
+                data={data}
+              />
+          }
+          {
+            !loading &&
+            <Result 
+              quote={quote}
+            />
+          }
+          
       </FormContainer>
     </Container>
   );
