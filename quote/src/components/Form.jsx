@@ -1,5 +1,10 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled';
+import { getYearDifference,
+         getYearCost,
+         getBrandIncrement,
+         getIncrementTotal,
+         getPlanIncrement } from '../helper.js';
 
 const FieldComponent = styled.div`
     display: flex;
@@ -40,6 +45,16 @@ const ButtonComponent = styled.button`
     }
 `;
 
+const ErrorComponent = styled.div`
+    background-color: red;
+    color: white;
+    padding: 1rem;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: bold;
+`;
+
 const Form = () => {
 
     const [ data, setData] = useState({
@@ -47,6 +62,8 @@ const Form = () => {
         year: '',
         plan: 'basic'
     })
+
+    const [ error, setError] = useState(false)
 
     const  { brand, year, plan} = data;
 
@@ -57,8 +74,37 @@ const Form = () => {
         })
     }
 
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        if ('' === brand.trim() || '' === year.trim() || '' === plan.trim()){
+            setError(true);
+            return;
+        }
+        setError(false);
+
+        // Initial cost
+        let result = 4000;
+        // calculate result
+        const difference = getYearDifference(year);
+        result = getYearCost(result, difference)
+
+        const brand_increment = getBrandIncrement(brand)
+        result = getIncrementTotal(result, brand_increment)
+
+        const plan_increment = getPlanIncrement(plan)
+        result = getIncrementTotal(result, plan_increment)
+
+        console.log(result)
+    };
+
     return ( 
-        <form>
+        <form
+            onSubmit={handleSubmit}
+        >
+            { error &&
+                <ErrorComponent>All fields are required</ErrorComponent>
+            }
             <FieldComponent>
                 <LabelComponent>Brand</LabelComponent>
                 <SelectComponent
@@ -114,7 +160,7 @@ const Form = () => {
             </FieldComponent>
 
             <ButtonComponent
-                type='button'
+                type='submit'
             >
                 Quote
             </ButtonComponent>
