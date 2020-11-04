@@ -1,8 +1,60 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import styled from '@emotion/styled';
+import Phrase from './components/Phrase.jsx';
+
+const ContainerComponent = styled.div`
+  display:flex;
+  align-items: center;
+  padding-top: 5rem;
+  flex-direction:column;
+`;
+
+const ButtonComponent = styled.button`
+  background: -webkit-linear-gradient(top left, #007d35 0%, #007d35 40%, #0f574e 100%);
+  background-size: 300px;
+  font-family: Arial, Helvetica, sans-serif, Arial, Helvetica, sans-serif, sans-serif;
+  color: #fff;
+  margin-top: 3rem;
+  padding: 1rem 3rem;
+  font-size: 2rem;
+  border: 2px solid black;
+  &:hover{
+    background: -webkit-linear-gradient(top left, #0f574e 0%, #0f574e 40%, #007d35 100%);
+      cursor: pointer;
+  }
+`;
 
 function App() {
+
+  
+
+  const [ phrase, setPhrase] = useState({})
+
+  useEffect( () => {
+    consultAPI()
+  }, []);
+
+  const consultAPI = async () => {
+    const api = await fetch('http://breaking-bad-quotes.herokuapp.com/v1/quotes');
+    const phrase = await api.json()
+    setPhrase(phrase[0])
+  }
+
+
   return (
-    <h1>Breaking Bad</h1>
+    <ContainerComponent>
+      
+      <Phrase
+        phrase={phrase}
+      />
+
+      <ButtonComponent
+        onClick={consultAPI}
+      >
+        Get phrase
+      </ButtonComponent>
+      
+    </ContainerComponent>
   );
 }
 
