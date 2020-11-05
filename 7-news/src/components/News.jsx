@@ -35,7 +35,6 @@ const News = ({news}) => {
         </div>
      );
 } 
- 
 
 News.propTypes = {
     news: PropTypes.object.isRequired
