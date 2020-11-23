@@ -1,7 +1,13 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 import Task from './Task.jsx';
+import ProjectContext from '../../context/projects/projectContext.jsx';
 
 const TaskList = () => {
+
+    const projectState = useContext(ProjectContext);
+    const { project, deleteProject } = projectState;
+
+    if (!project) return <h2>Select a project</h2>
 
     const tasks = [
         { name: "Task 1", status:true},
@@ -9,9 +15,14 @@ const TaskList = () => {
         { name: "Task 3", status:false},
         { name: "Task 4", status:true},
     ]
+
+    const handleDelete = () => {
+        deleteProject(project.id);
+    }
+
     return (
         <Fragment>
-            <h2>Project: P1</h2>
+            <h2>Project: {project.name}</h2>
             <ul className="listado-tarea">
                 {
                     tasks.length === 0 ?
@@ -25,14 +36,13 @@ const TaskList = () => {
                                 task={task}
                             />
                         ))
-
-
                 }
             </ul>
 
             <button
                 type="button"
                 className="btn btn-eliminar"
+                onClick={ handleDelete }
             >
                 Delete project &times;
             </button>

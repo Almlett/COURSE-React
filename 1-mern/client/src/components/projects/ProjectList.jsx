@@ -11,8 +11,8 @@ const ProjectList = () => {
         getProjects();
     },[]);
 
-    if (projects.lenght === 0) return null;
-
+    if (projects.length === 0) return <p>no projects</p>;
+    
     return ( 
         <ul className="listado-proyectos">
             {
@@ -23,7 +23,6 @@ const ProjectList = () => {
                     />
                 ))
             }
-            
         </ul>
      );
 }

@@ -1,7 +1,16 @@
 import React, { useReducer } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import projectContext from './projectContext.jsx';
 import projectReducer from './projectReducer.jsx';
-import { PROJECT_FORM, GET_PROJECTS } from '../../types'
+import { 
+    PROJECT_FORM,
+    GET_PROJECTS,
+    ADD_PROJECTS,
+    VALIDATE_FORM,
+    ACTUAL_PROJECT,
+    DELETE_PROJECT
+} from '../../types'
+
 
 
 const ProjectProvider = props => {
@@ -17,7 +26,9 @@ const ProjectProvider = props => {
     
     const initialState = {
         projects : [],
-        form: false
+        form: false,
+        form_error:false,
+        project: null
     };
 
     const [state, dispatch] = useReducer(projectReducer, initialState);
@@ -35,13 +46,47 @@ const ProjectProvider = props => {
         })
     }
 
+    const addProject = project => {
+        project.id = uuidv4();
+        dispatch({
+            type:ADD_PROJECTS,
+            payload: project
+        })
+    }
+
+    const showError = () =>{
+        dispatch({
+            type:VALIDATE_FORM
+        })
+    }
+
+    const setProject = project_id => {
+        dispatch({
+            type:ACTUAL_PROJECT,
+            payload: project_id
+        })
+    }
+
+    const deleteProject = project_id => {
+        dispatch({
+            type:DELETE_PROJECT,
+            payload: project_id
+        })
+    }
+
     return(
         <projectContext.Provider
             value={{
-                projects: state.projects,
                 form:state.form,
+                project:state.project,
+                projects: state.projects,
+                form_error:state.form_error,
                 showForm,
-                getProjects
+                showError,
+                addProject,
+                setProject,
+                getProjects,
+                deleteProject
             }}
         >
             {props.children}
