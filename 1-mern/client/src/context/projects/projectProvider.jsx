@@ -7,7 +7,7 @@ import {
     GET_PROJECTS,
     ADD_PROJECTS,
     VALIDATE_FORM,
-    ACTUAL_PROJECT,
+    CURRENT_PROJECT,
     DELETE_PROJECT
 } from '../../types'
 
@@ -62,7 +62,7 @@ const ProjectProvider = props => {
 
     const setProject = project_id => {
         dispatch({
-            type:ACTUAL_PROJECT,
+            type:CURRENT_PROJECT,
             payload: project_id
         })
     }

@@ -18,7 +18,7 @@ const ProjectList = () => {
             {
                 projects.map(project => (
                     <Project 
-                        key={project.id}
+                    key={project.id}
                         project={project}
                     />
                 ))

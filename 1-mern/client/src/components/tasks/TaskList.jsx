@@ -1,20 +1,20 @@
 import React, { Fragment, useContext } from 'react'
 import Task from './Task.jsx';
 import ProjectContext from '../../context/projects/projectContext.jsx';
+import TaskContext from '../../context/tasks/taskContext.jsx';
 
 const TaskList = () => {
 
     const projectState = useContext(ProjectContext);
     const { project, deleteProject } = projectState;
 
+    //obtener el state de las tareas
+    const taskState = useContext(TaskContext);
+    const { project_tasks } = taskState;
+
     if (!project) return <h2>Select a project</h2>
 
-    const tasks = [
-        { name: "Task 1", status:true},
-        { name: "Task 2", status:true},
-        { name: "Task 3", status:false},
-        { name: "Task 4", status:true},
-    ]
+    const tasks = project_tasks;
 
     const handleDelete = () => {
         deleteProject(project.id);
@@ -31,10 +31,10 @@ const TaskList = () => {
                     )
                     :
                         tasks.map(task => (
-                            <Task
-                                key={task.name}
-                                task={task}
-                            />
+                                <Task
+                                key={task.id}
+                                    task={task}
+                                />
                         ))
                 }
             </ul>
