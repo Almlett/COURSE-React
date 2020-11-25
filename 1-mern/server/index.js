@@ -14,6 +14,8 @@ const PORT = process.env.PORT || 4000;
 
 // import routes
 server.use('/api/users', require('./routes/users.js'));
+server.use('/api/auth', require('./routes/auth.js'));
+server.use('/api/projects', require('./routes/projects.js'));
 
 // Start server
 server.listen(PORT, () => {
