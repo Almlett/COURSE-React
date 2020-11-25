@@ -6,19 +6,22 @@ import Projects from './components/projects/Projects.jsx';
 
 import ProjectProvider from './context/projects/projectProvider.jsx';
 import TaskProvider from './context/tasks/taskProvider.jsx';
+import AlertProvider from './context/alerts/alertProvider.jsx';
 
 function App() {
 
   return (
     <ProjectProvider>
       <TaskProvider>
-        <Router>
-          <Switch>
-            <Route exact path="/" component={Login} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/projects" component={Projects} />
-          </Switch>
-        </Router>
+        <AlertProvider>
+          <Router>
+            <Switch>
+              <Route exact path="/" component={Login} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/projects" component={Projects} />
+            </Switch>
+          </Router>
+        </AlertProvider>
       </TaskProvider>
     </ProjectProvider>
   );
