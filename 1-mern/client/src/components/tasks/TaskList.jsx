@@ -17,7 +17,7 @@ const TaskList = () => {
     const tasks = project_tasks;
 
     const handleDelete = () => {
-        deleteProject(project.id);
+        deleteProject(project._id);
     }
 
     return (
@@ -32,7 +32,7 @@ const TaskList = () => {
                     :
                         tasks.map(task => (
                                 <Task
-                                key={task.id}
+                                key={task._id}
                                     task={task}
                                 />
                         ))

@@ -1,10 +1,10 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import authContext from '../../context/auth/authContext.jsx';
 
 const Header = () => {
 
     const authState = useContext(authContext);
-    const { user, getUser, userLogout } = authState;
+    const { user, userLogout } = authState;
    
 
     return ( 

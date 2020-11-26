@@ -5,9 +5,11 @@ import {
     ADD_PROJECTS,
     VALIDATE_FORM,
     CURRENT_PROJECT,
-    DELETE_PROJECT
+    DELETE_PROJECT,
+    PROJECT_ERROR
 } from '../../types'
 
+/* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default (state, action) => {
     switch(action.type){
         case PROJECT_FORM:
@@ -35,13 +37,18 @@ export default (state, action) => {
         case CURRENT_PROJECT:
             return{
                 ...state,
-                project: state.projects.filter(project => project.id === action.payload)[0]
+                project: state.projects.filter(project => project._id === action.payload)[0]
             }
         case DELETE_PROJECT:
             return{
                 ...state,
-                projects: state.projects.filter(project => project.id !== action.payload),
+                projects: state.projects.filter(project => project._id !== action.payload),
                 project:null
+            }
+        case PROJECT_ERROR:
+            return {
+                ...state,
+                msg: action.payload
             }
         default:
             return state;

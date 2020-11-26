@@ -7,17 +7,17 @@ const Task = ({task}) => {
     const { project } = projectState;
     //obtener el state de las tareas
     const taskState = useContext(TaskContext);
-    const { deleteTask, getProjectTasks, updateTaskState, setCurrentTask } = taskState;
+    const { deleteTask, getProjectTasks, updateTask, setCurrentTask } = taskState;
 
     const handleDelete = id => {
-        deleteTask(id);
-        getProjectTasks(project.id);
+        deleteTask(id, project._id);
+        getProjectTasks(project._id);
     }
 
     const handleState = task => {
         task.status = !task.status;
-        updateTaskState(task);
-        getProjectTasks(project.id);
+        updateTask(task);
+        //getProjectTasks(project._id);
     }
 
     const handleSelectTask = task => {
@@ -61,7 +61,7 @@ const Task = ({task}) => {
                 <button
                     type="button"
                     className="btn btn-secundario"
-                    onClick={() => handleDelete(task.id)}
+                    onClick={() => handleDelete(task._id)}
                 >
                     Delete
                 </button>

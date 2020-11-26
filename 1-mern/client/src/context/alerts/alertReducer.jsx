@@ -1,8 +1,10 @@
+// eslint-disable-next-line
 import {
     SHOW_ALERT,
     HIDE_ALERT
 } from '../../types';
 
+/* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default (state,action) => {
     switch(action.type){
         case SHOW_ALERT:

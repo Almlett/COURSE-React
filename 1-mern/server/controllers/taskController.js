@@ -34,7 +34,7 @@ exports.createTask = async (req, res) =>  {
 
 exports.getTasks = async (req, res) => {
     //req.query get params
-    const { project } = req.body;
+    const { project } = req.query;
     try {
         const project_exist = await Project.findById(project);
         if (!project_exist){
@@ -45,7 +45,7 @@ exports.getTasks = async (req, res) => {
             return res.status(401).json({msg:"No authorized"})
         }
 
-        const tasks = await Task.find({ project })
+        const tasks = await Task.find({ project }).sort({created_at: -1})
         res.json({ tasks });
 
     } catch (error) {
@@ -59,9 +59,7 @@ exports.updateTask = async (req, res) => {
     const { project, name, status } = req.body;
 
     try {
-
         const task_exist = await Task.findById(req.params.id)
-
         if (!task_exist){
             return res.status(404).json({msg:"Task dont exist"})
         }
@@ -73,9 +71,8 @@ exports.updateTask = async (req, res) => {
 
 
         const new_task = {};
-
-        if (name) new_task.name = name;
-        if (status) new_task.status = status;
+        new_task.name = name;
+        new_task.status = status;
 
         let task = await Task.findOneAndUpdate({ _id:req.params.id}, new_task, {new:true})
         res.json({task})
@@ -89,7 +86,7 @@ exports.updateTask = async (req, res) => {
 
 exports.deleteTask = async (req, res) => {
     
-    const { project } = req.body;
+    const { project } = req.query;
     try {
 
         const task_exist = await Task.findById(req.params.id)

@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import {
     SUCCESSFUL_REGISTRATION,
     ERROR_REGISTRATION,
@@ -7,6 +8,7 @@ import {
     LOGOUT
 } from '../../types';
 
+/* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default (state,action) => {
     switch(action.type){
         case SUCCESSFULL_LOGIN:
