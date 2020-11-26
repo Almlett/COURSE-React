@@ -1,11 +1,26 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import alertContext from '../../context/alerts/alertContext.jsx';
+import authContext from '../../context/auth/authContext.jsx';
 
-const Register = () => {
+const Register = (props) => {
 
     const alertState = useContext(alertContext);
     const { alert, showAlert } = alertState;
+
+    const authState = useContext(authContext);
+    const { msg, authenticated, registerUser } = authState;
+
+    /// despues de registrarse
+    useEffect(() => {
+        if (authenticated){
+            props.history.push('/projects')
+        }
+
+        if (msg){
+            showAlert(msg.msg, msg.category)
+        }
+    },[msg, authenticated, props.history])
 
     const [user, setUser] = useState({
         name: '',
@@ -13,7 +28,6 @@ const Register = () => {
         password: '',
         confirm_password: ''
     })
-    const [error, setError] = useState(false);
 
     const {name, email, password,confirm_password} = user;
 
@@ -44,6 +58,12 @@ const Register = () => {
             showAlert("The passwords are not the same", 'alerta-error')
             return;
         }
+
+        registerUser({
+            name,
+            email,
+            password
+        })
 
     }
 

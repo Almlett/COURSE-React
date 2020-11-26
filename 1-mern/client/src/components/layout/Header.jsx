@@ -1,17 +1,30 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
+import authContext from '../../context/auth/authContext.jsx';
 
 const Header = () => {
+
+    const authState = useContext(authContext);
+    const { user, getUser, userLogout } = authState;
+   
+
     return ( 
         <header className="app-header">
-            <p className="nombre-usuario">
-                Hola
-                <span>
-                    Alan
-                </span>
-            </p>
+            {user &&
+                <p className="nombre-usuario">
+                    Hola
+                    <span>
+                        {user.name}
+                    </span>
+                </p>
+            }
 
             <nav className="nav-principal">
-                <a href="#!">Logout</a>
+                <button
+                    className="btn btn-blank cerrar-sesion"
+                    onClick={() => userLogout()}
+                >
+                    Logout
+                </button>
             </nav>
             
         </header>

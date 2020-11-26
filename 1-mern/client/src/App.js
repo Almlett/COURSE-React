@@ -7,6 +7,14 @@ import Projects from './components/projects/Projects.jsx';
 import ProjectProvider from './context/projects/projectProvider.jsx';
 import TaskProvider from './context/tasks/taskProvider.jsx';
 import AlertProvider from './context/alerts/alertProvider.jsx';
+import AuthProvider from './context/auth/authProvider.jsx';
+import tokenAuth from './config/tokenAuth.js';
+
+import PrivateRoute from './components/routes/privateRoute.jsx';
+const token = localStorage.getItem('token');
+if (token){
+  tokenAuth(token);
+}
 
 function App() {
 
@@ -14,13 +22,15 @@ function App() {
     <ProjectProvider>
       <TaskProvider>
         <AlertProvider>
-          <Router>
-            <Switch>
-              <Route exact path="/" component={Login} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/projects" component={Projects} />
-            </Switch>
-          </Router>
+          <AuthProvider>
+            <Router>
+              <Switch>
+                <Route exact path="/" component={Login} />
+                <Route exact path="/register" component={Register} />
+                <PrivateRoute exact path="/projects" component={Projects} />
+              </Switch>
+            </Router>
+          </AuthProvider>
         </AlertProvider>
       </TaskProvider>
     </ProjectProvider>
